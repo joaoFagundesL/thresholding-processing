@@ -73,6 +73,7 @@ static void threshold_image(Pgm_image *image, int threshold)
 {
 	for (int i = 0; i < image->height; i++) {
 		for (int j = 0; j < image->width; j++) {
+
 			image->pixels[i][j] =
 			    image->pixels[i][j] <= threshold ? BLACK : WHITE;
 		}
@@ -124,7 +125,7 @@ void threshold_generate(Pgm_image *image)
 		UPDATE_THRESHOLD;
 	}
 
-  threshold_image(image, threshold);
+	threshold_image(image, threshold);
 }
 
 void free_pgm_image(Pgm_image *image)
