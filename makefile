@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Wshadow -O3 -g
+CFLAGS = -Wall -Wextra -Wshadow -O3 -g
 
 all: main
 

@@ -2,22 +2,24 @@
 
 int main(int argc, char *argv[])
 {
-	if (argc != ARGS_QUANTITY) {
-		printf("run with: %s <input_file> <output_file>\n", argv[0]);
+	if (argc < ARGS_MIN_QUANTITY || argc > ARGS_MAX_QUANTITY) {
+		printf
+		    ("run with: %s <input_file> <output_file> <threshold (optional)>\n",
+		     argv[0]);
 		return EXIT_FAILURE;
-	}
+    }
 
-	const char *input_filename = argv[1];
-	const char *output_filename = argv[2];
-
-	Pgm_image *image = read_pgm_image(input_filename);
+	Pgm_image *image = read_pgm_image(argv[1]);
 
 	if (!image)
 		return EXIT_FAILURE;
 
-	threshold_generate(image);
+	int threshold = argc == ARGS_MIN_QUANTITY ? threshold_generate(image,
+						       0) : atoi(argv[3]);
 
-	write_pgm_image(output_filename, image);
+  threshold_image(image, threshold);
+  
+	write_pgm_image(argv[2], image);
 
 	free_pgm_image(image);
 
