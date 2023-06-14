@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 		    ("run with: %s <input_file> <output_file> <threshold (optional)>\n",
 		     argv[0]);
 		return EXIT_FAILURE;
-    }
+	}
 
 	Pgm_image *image = read_pgm_image(argv[1]);
 
@@ -15,10 +15,11 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 
 	int threshold = argc == ARGS_MIN_QUANTITY ? threshold_generate(image,
-						       0) : atoi(argv[3]);
+								       0) :
+	    atoi(argv[3]);
 
-  threshold_image(image, threshold);
-  
+	threshold_image(image, threshold);
+
 	write_pgm_image(argv[2], image);
 
 	free_pgm_image(image);

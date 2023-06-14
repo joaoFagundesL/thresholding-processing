@@ -39,6 +39,6 @@ typedef struct {
 Pgm_image *read_pgm_image(const char *filename);
 
 void write_pgm_image(const char *filename, Pgm_image * image);
-void threshold_image(Pgm_image *image, int threshold);
+void threshold_image(Pgm_image * image, int threshold);
 int threshold_generate(Pgm_image * image, int threshold);
 void free_pgm_image(Pgm_image * image);

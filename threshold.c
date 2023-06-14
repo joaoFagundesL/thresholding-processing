@@ -5,8 +5,9 @@
 #include "threshold.h"
 #include <assert.h>
 
-static int check_image_format(FILE *file) {
-  char format[3];
+static int check_image_format(FILE *file)
+{
+	char format[3];
 	fscanf(file, "%2s", format);
 
 	if (format[0] != 'P' || format[1] != '2') {
@@ -15,36 +16,39 @@ static int check_image_format(FILE *file) {
 		return EXIT_FAILURE;
 	}
 
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
-static unsigned char **allocate_pixel(int width, int height) {
+static unsigned char **allocate_pixel(int width, int height)
+{
 	unsigned char **pixels =
 	    (unsigned char **)malloc(height * sizeof(unsigned char *));
-  
-  assert(pixels != NULL);
+
+	assert(pixels != NULL);
 
 	for (int i = 0; i < height; i++) {
 		pixels[i] =
 		    (unsigned char *)malloc(width * sizeof(unsigned char));
 
-    assert(pixels[i] != NULL);
+		assert(pixels[i] != NULL);
 	}
 
-  return pixels;
+	return pixels;
 }
 
-static Pgm_image *set_image(int width, int height, int max_gray, unsigned char **pixels) {
-  Pgm_image *image = (Pgm_image *) malloc(sizeof(Pgm_image));
+static Pgm_image *set_image(int width, int height, int max_gray,
+			    unsigned char **pixels)
+{
+	Pgm_image *image = (Pgm_image *) malloc(sizeof(Pgm_image));
 
-  assert(image != NULL);
+	assert(image != NULL);
 
 	image->width = width;
 	image->height = height;
 	image->max_gray = max_gray;
 	image->pixels = pixels;
 
-  return image;
+	return image;
 }
 
 Pgm_image *read_pgm_image(const char *filename)
@@ -54,17 +58,17 @@ Pgm_image *read_pgm_image(const char *filename)
 		perror("error opening file");
 		return NULL;
 	}
-  
-  if(check_image_format(file) == EXIT_FAILURE)
-    return NULL;
-	
+
+	if (check_image_format(file) == EXIT_FAILURE)
+		return NULL;
+
 	int width, height, max_gray;
 	fscanf(file, "%d %d\n%d\n", &width, &height, &max_gray);
 
 	unsigned char **pixels = allocate_pixel(width, height);
 
 	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) 
+		for (int j = 0; j < width; j++)
 			fscanf(file, "%hhu", &pixels[i][j]);
 	}
 
@@ -105,7 +109,7 @@ void threshold_image(Pgm_image *image, int threshold)
 		}
 	}
 
-  printf("threshold used: %d\n", threshold);
+	printf("threshold used: %d\n", threshold);
 }
 
 static void fill_histogram(Pgm_image *image, int *histogram)
@@ -152,7 +156,7 @@ int threshold_generate(Pgm_image *image, int threshold)
 		UPDATE_THRESHOLD;
 	}
 
-  return threshold;
+	return threshold;
 }
 
 void free_pgm_image(Pgm_image *image)
