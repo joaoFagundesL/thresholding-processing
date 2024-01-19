@@ -105,7 +105,6 @@ void threshold_image(Pgm_image *image, int threshold) {
 static void fill_histogram(Pgm_image *image, int *histogram) {
   for (int i = 0; i < image->height; i++) {
     for (int j = 0; j < image->width; j++)
-      if (image->pixels[i][j] != WHITE)
         histogram[image->pixels[i][j]]++;
   }
 }
